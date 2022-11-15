@@ -1,0 +1,34 @@
+version: "3"
+services:
+  development_db:
+    build:
+      context: ./deploy
+      dockerfile: Dockerfile.mysql
+    container_name: "development_db"
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+    volumes:
+      - datavolume:/var/lib/mysql
+
+  testing_db:
+    build:
+      context: ./deploy
+      dockerfile: Dockerfile.mysql
+    container_name: "testing_db"
+    ports:
+      - $TESTING_MYSQLDB_LOCAL_PORT:$TESTING_MYSQLDB_DOCKER_PORT
+    env_file: .env
+    environment:
+      MYSQL_ROOT_PASSWORD: $TESTING_MYSQL_ROOT_PASSWORD
+      MYSQL_USER: $TESTING_MYSQL_USER
+      MYSQL_PASSWORD: $TESTING_MYSQL_PASSWORD
+      MYSQL_DATABASE: $TESTING_MYSQL_DATABASE
+
+volumes:
+  datavolume:

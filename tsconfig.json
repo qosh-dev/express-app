@@ -1,0 +1,24 @@
+{
+  "exclude": ["src/**/*.spec.ts", "./coverage", "__tests__", "jest.config.js"],
+  "include": ["src/**/*"],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  },
+
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "types": ["node", "jest"],
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  }
+}

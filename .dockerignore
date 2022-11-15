@@ -1,0 +1,7 @@
+_test_
+.git
+jest.config.js
+.Dockerfile
+uploads/
+dist
+# node_modules

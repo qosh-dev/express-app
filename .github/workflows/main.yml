@@ -1,0 +1,35 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+
+env:
+  TESTING_MYSQL_DATABASE: test_db
+  TESTING_MYSQL_USER: root
+  TESTING_MYSQL_PASSWORD: root
+  TESTING_MYSQL_ROOT_PASSWORD: rootpassword
+  TESTING_MYSQLDB_LOCAL_PORT: 3306
+
+jobs:
+  TESTING_REST_API:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+      - name: Set up MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{ env.TESTING_MYSQL_DATABASE }};' -u${{ env.TESTING_MYSQL_USER }} -p${{ env.TESTING_MYSQL_PASSWORD }}
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run tests
+        run: |
+          npm run test:workflow
